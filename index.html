@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Subject Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Theme Styles with Text Colors */
+        .theme-ocean { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white;
+        }
+        .theme-sunset { 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); 
+            color: #4a4a4a;
+        }
+        .theme-forest { 
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); 
+            color: white;
+        }
+        .theme-midnight { 
+            background: linear-gradient(135deg, #232526 0%, #414345 100%); 
+            color: white;
+        }
+        .theme-aurora { 
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
+            color: #4a4a4a;
+        }
+        .theme-fire { 
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%); 
+            color: white;
+        }
+        .theme-royal { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white;
+        }
+        .theme-emerald { 
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+            color: white;
+        }
+        .theme-cosmic { 
+            background: linear-gradient(135deg, #4776e6 0%, #8e54e9 100%); 
+            color: white;
+        }
+        .theme-cherry { 
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); 
+            color: white;
+        }
+        .theme-mint { 
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); 
+            color: white;
+        }
+        .theme-gold { 
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); 
+            color: #4a4a4a;
+        }
+        .theme-lavender { 
+            background: linear-gradient(135deg, #c471f5 0%, #fa71cd 100%); 
+            color: white;
+        }
+        .theme-steel { 
+            background: linear-gradient(135deg, #485563 0%, #29323c 100%); 
+            color: white;
+        }
+        .theme-rose { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); 
+            color: white;
+        }
+        .theme-aqua { 
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
+            color: white;
+        }
+        .theme-amber { 
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); 
+            color: #4a4a4a;
+        }
+        .theme-violet { 
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); 
+            color: #4a4a4a;
+        }
+        .theme-lime { 
+            background: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%); 
+            color: #4a4a4a;
+        }
+        .theme-coral { 
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%); 
+            color: white;
+        }
+        .theme-teal { 
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); 
+            color: white;
+        }
+        .theme-bronze { 
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%); 
+            color: #4a4a4a;
+        }
+        
+        /* Solid Color Themes */
+        .theme-solid-blue { background: #1e40af; color: white; }
+        .theme-solid-green { background: #059669; color: white; }
+        .theme-solid-red { background: #dc2626; color: white; }
+        .theme-solid-purple { background: #7c3aed; color: white; }
+        .theme-solid-amber { background: #d97706; color: white; }
+        .theme-solid-slate { background: #475569; color: white; }
+        .theme-solid-rose { background: #e11d48; color: white; }
+        .theme-solid-teal { background: #0d9488; color: white; }
+        
+        /* Textured Themes */
+        .theme-paper { 
+            background: linear-gradient(135deg, #f7f3e9 0%, #e8dcc0 100%);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+            color: #4a4a4a;
+        }
+        .theme-marble { 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background-image: 
+                linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%);
+            background-size: 20px 20px;
+            color: #4a4a4a;
+        }
+        .theme-wood { 
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 2px, transparent 10px, rgba(0,0,0,0.1) 12px);
+            color: white;
+        }
+        .theme-metal { 
+            background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+            background-image: 
+                linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 30px 30px;
+            color: white;
+        }
+        .theme-fabric { 
+            background: linear-gradient(135deg, #faf7f0 0%, #e6ddd4 100%);
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(0,0,0,0.1) 1px, transparent 0);
+            background-size: 15px 15px;
+            color: #4a4a4a;
+        }
+        
+        /* Dark Themes */
+        .theme-dark-ocean { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; }
+        .theme-dark-forest { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); color: white; }
+        .theme-dark-purple { background: linear-gradient(135deg, #581c87 0%, #6b21a8 100%); color: white; }
+        .theme-dark-red { background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%); color: white; }
+        
+        /* Light Themes */
+        .theme-light-sky { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); color: #0c4a6e; }
+        .theme-light-mint { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); color: #064e3b; }
+        .theme-light-rose { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); color: #831843; }
+        .theme-light-amber { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #78350f; }
+        
+        /* Neon Themes */
+        .theme-neon-blue { 
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            color: white;
+        }
+        .theme-neon-green { 
+            background: linear-gradient(135deg, #166534 0%, #22c55e 100%);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+            color: white;
+        }
+        .theme-neon-pink { 
+            background: linear-gradient(135deg, #be185d 0%, #ec4899 100%);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+            color: white;
+        }
+        .theme-neon-purple { 
+            background: linear-gradient(135deg, #581c87 0%, #a855f7 100%);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            color: white;
+        }
+        
+        /* VIP Themes */
+        .theme-diamond { 
+            background: linear-gradient(135deg, #e8f5e8 0%, #b8e6b8 100%); 
+            color: #2d5a2d;
+        }
+        .theme-rainbow { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%); 
+            color: white;
+        }
+        .theme-phoenix { 
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); 
+            color: white;
+        }
+        .theme-glacier { 
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%); 
+            color: #2d5a2d;
+        }
+        .theme-moonlight { 
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); 
+            color: white;
+        }
+        .theme-thunder { 
+            background: linear-gradient(135deg, #654ea3 0%, #eaafc8 100%); 
+            color: white;
+        }
+        .theme-nature { 
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%); 
+            color: white;
+        }
+        .theme-celebration { 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); 
+            color: #4a4a4a;
+        }
+        .theme-starlight { 
+            background: linear-gradient(135deg, #0f0c29 0%, #24243e 100%);
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            color: white;
+        }
+        .theme-butterfly { 
+            background: linear-gradient(135deg, #ff9472 0%, #f2709c 100%);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            color: white;
+        }
+        .theme-tropical { 
+            background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+            background-image: 
+                linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 40px 40px;
+            color: white;
+        }
+        .theme-artist { 
+            background: linear-gradient(135deg, #667db6 0%, #0082c8 100%);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+            color: white;
+        }
+        
+        /* Text color overrides for light themes */
+        .theme-sunset .text-white, .theme-aurora .text-white, .theme-gold .text-white,
+        .theme-amber .text-white, .theme-violet .text-white, .theme-lime .text-white,
+        .theme-bronze .text-white, .theme-diamond .text-white, .theme-glacier .text-white,
+        .theme-celebration .text-white {
+            color: #4a4a4a !important;
+        }
+        
+        .theme-sunset .text-white\/80, .theme-aurora .text-white\/80, .theme-gold .text-white\/80,
+        .theme-amber .text-white\/80, .theme-violet .text-white\/80, .theme-lime .text-white\/80,
+        .theme-bronze .text-white\/80, .theme-diamond .text-white\/80, .theme-glacier .text-white\/80,
+        .theme-celebration .text-white\/80 {
+            color: #6a6a6a !important;
+        }
+        
+        .theme-sunset .text-white\/70, .theme-aurora .text-white\/70, .theme-gold .text-white\/70,
+        .theme-amber .text-white\/70, .theme-violet .text-white\/70, .theme-lime .text-white\/70,
+        .theme-bronze .text-white\/70, .theme-diamond .text-white\/70, .theme-glacier .text-white\/70,
+        .theme-celebration .text-white\/70 {
+            color: #7a7a7a !important;
+        }
+        
+        .theme-sunset .text-white\/90, .theme-aurora .text-white\/90, .theme-gold .text-white\/90,
+        .theme-amber .text-white\/90, .theme-violet .text-white\/90, .theme-lime .text-white\/90,
+        .theme-bronze .text-white\/90, .theme-diamond .text-white\/90, .theme-glacier .text-white\/90,
+        .theme-celebration .text-white\/90 {
+            color: #5a5a5a !important;
+        }
+        
+        /* Ensure modal inputs and text areas always have proper colors */
+        input[type="text"], input[type="time"], select, textarea {
+            color: #374151 !important;
+            background-color: white !important;
+        }
+        
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: #9ca3af !important;
+        }
+        
+        /* Modal text colors - always dark for readability */
+        .bg-white h2, .bg-white label, .bg-white p, .bg-white span, .bg-white div {
+            color: #374151 !important;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .subject-card {
+            transition: all 0.3s ease;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .live-subject {
+            animation: pulse 2s infinite;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-overlay {
+            backdrop-filter: blur(5px);
+        }
+        
+        .slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .timer-display {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .editable-title {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .editable-title:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .checkbox-custom {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .checkbox-custom:checked {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .checkbox-custom:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <div class="glass-effect p-3 mb-4">
+        <div class="flex justify-between items-center mb-2">
+            <div>
+                <h1 class="text-lg font-bold text-white editable-title" onclick="editTitle(this)">Subject Tracker</h1>
+                <p class="text-white/80 text-xs" id="currentDate"></p>
+            </div>
+            <div class="flex gap-1">
+                <button onclick="showThemes()" class="bg-white/20 text-white px-2 py-1 rounded text-xs hover:bg-white/30 transition-colors">
+                    🎨
+                </button>
+                <button onclick="showHistory()" class="bg-white/20 text-white px-2 py-1 rounded text-xs hover:bg-white/30 transition-colors">
+                    📈
+                </button>
+                <button onclick="showSettings()" class="bg-white/20 text-white px-2 py-1 rounded text-xs hover:bg-white/30 transition-colors">
+                    ⚙️
+                </button>
+            </div>
+        </div>
+        
+        <!-- Live Stats -->
+        <div class="grid grid-cols-2 gap-2 text-white/90 text-xs">
+            <div class="flex justify-between">
+                <span>📚 <span id="totalSubjects">0</span></span>
+                <span>✅ <span id="completedCount">0</span></span>
+            </div>
+            <div class="flex justify-between">
+                <span>🔴 <span id="liveSubjects">0</span></span>
+                <span>⏰ <span id="currentTime"></span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subjects Container -->
+    <div class="px-3 pb-16">
+        <div id="subjectsContainer" class="space-y-3">
+            <!-- Subjects will be dynamically added here -->
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="text-center py-8 hidden">
+            <div class="text-4xl mb-3">📚</div>
+            <h3 class="text-lg font-semibold text-white mb-2">No Subjects Added</h3>
+            <p class="text-white/80 mb-4 text-sm">Add your first subject to start tracking!</p>
+            <button onclick="showAddSubjectModal()" class="bg-white text-purple-600 px-4 py-2 rounded-lg font-medium hover:bg-white/90 transition-colors text-sm">
+                Add Subject
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Add Button -->
+    <button onclick="showAddSubjectModal()" class="floating-btn bg-white text-purple-600 w-10 h-10 rounded-lg flex items-center justify-center text-sm hover:scale-110 transition-transform shadow-lg">
+        ➕
+    </button>
+
+    <!-- Add Subject Modal -->
+    <div id="addSubjectModal" class="fixed inset-0 bg-black/50 modal-overlay hidden z-50 flex items-end">
+        <div class="bg-white w-full rounded-t-2xl p-4 slide-up max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-gray-800">Add New Subject</h2>
+                <button onclick="closeAddSubjectModal()" class="text-gray-500 text-xl">✕</button>
+            </div>
+            
+            <form onsubmit="addSubject(event)">
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Subject Name</label>
+                        <input type="text" id="subjectName" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm" placeholder="e.g., Mathematics">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Priority</label>
+                        <select id="priorityLevel" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
+                            <option value="high">🔴 High</option>
+                            <option value="medium" selected>🟡 Medium</option>
+                            <option value="low">🟢 Low</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Start Time</label>
+                            <input type="time" id="startTime" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">End Time</label>
+                            <input type="time" id="endTime" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg font-medium mt-4 hover:bg-purple-700 transition-colors text-sm">
+                    Add Subject
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Subject Detail Modal -->
+    <div id="subjectDetailModal" class="fixed inset-0 bg-black/50 modal-overlay hidden z-50 flex items-center justify-center p-3">
+        <div class="bg-white w-full max-w-sm rounded-2xl p-4 fade-in max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-gray-800" id="detailSubjectName">Subject Notes</h2>
+                <button onclick="closeSubjectDetailModal()" class="text-gray-500 text-xl">✕</button>
+            </div>
+            
+            <!-- Notes Section -->
+            <div class="mb-4">
+                <label class="block text-xs font-medium text-gray-700 mb-1">Today's Notes</label>
+                <textarea id="subjectNotes" rows="8" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-sm text-gray-800" placeholder="Add your study notes here..." oninput="autoSaveNotes()"></textarea>
+            </div>
+            
+            <!-- Save Button -->
+            <button onclick="saveSubjectData()" class="w-full bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors text-sm">
+                Save Notes
+            </button>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="fixed inset-0 bg-black/50 modal-overlay hidden z-50 flex items-center justify-center p-3">
+        <div class="bg-white w-full max-h-[85vh] rounded-2xl p-4 fade-in overflow-hidden flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-gray-800">Study History</h2>
+                <button onclick="closeHistoryModal()" class="text-gray-500 text-xl">✕</button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto" id="historyContent">
+                <!-- History content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Themes Modal -->
+    <div id="themesModal" class="fixed inset-0 bg-black/50 modal-overlay hidden z-50 flex items-center justify-center p-3">
+        <div class="bg-white w-full max-h-[85vh] rounded-2xl p-4 fade-in overflow-hidden flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-gray-800">🎨 Choose Theme</h2>
+                <button onclick="closeThemesModal()" class="text-gray-500 text-xl">✕</button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto">
+                <div class="grid grid-cols-2 gap-3" id="themesGrid">
+                    <!-- Themes will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/50 modal-overlay hidden z-50 flex items-center justify-center p-3">
+        <div class="bg-white w-full max-w-sm rounded-2xl p-4 fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-gray-800">⚙️ Settings</h2>
+                <button onclick="closeSettingsModal()" class="text-gray-500 text-xl">✕</button>
+            </div>
+            
+            <div class="space-y-3">
+                <button onclick="exportData()" class="w-full bg-blue-500 text-white py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 text-sm">
+                    📤 Export Data
+                </button>
+                
+                <button onclick="importData()" class="w-full bg-green-500 text-white py-2 rounded-lg font-medium hover:bg-green-600 transition-colors flex items-center justify-center gap-2 text-sm">
+                    📥 Import Data
+                </button>
+                
+                <button onclick="toggleEditMode()" class="w-full bg-orange-500 text-white py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 text-sm" id="editModeBtn">
+                    ✏️ Edit Mode
+                </button>
+                
+                <button onclick="clearAllData()" class="w-full bg-red-500 text-white py-2 rounded-lg font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-sm">
+                    🗑️ Clear All Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Global variables
+        let subjects = JSON.parse(localStorage.getItem('subjects')) || [];
+        let currentSubject = null;
+        let timer = null;
+        let timerSeconds = 0;
+        let isTimerRunning = false;
+        let dailyData = JSON.parse(localStorage.getItem('dailyData')) || {};
+        let history = JSON.parse(localStorage.getItem('studyHistory')) || [];
+        let lastResetDate = localStorage.getItem('lastResetDate') || new Date().toDateString();
+        let currentTheme = localStorage.getItem('currentTheme') || 'theme-ocean';
+        let editMode = false;
+        let appTitle = localStorage.getItem('appTitle') || 'Subject Tracker';
+        
+        const themes = [
+            // Lightweight Gradients
+            { name: 'Ocean Breeze', class: 'theme-ocean', colors: ['#667eea', '#764ba2'], type: 'gradient' },
+            { name: 'Sunset Glow', class: 'theme-sunset', colors: ['#ff9a9e', '#fecfef'], type: 'gradient' },
+            { name: 'Forest Mist', class: 'theme-forest', colors: ['#134e5e', '#71b280'], type: 'gradient' },
+            { name: 'Midnight Sky', class: 'theme-midnight', colors: ['#232526', '#414345'], type: 'gradient' },
+            { name: 'Aurora Light', class: 'theme-aurora', colors: ['#a8edea', '#fed6e3'], type: 'gradient' },
+            { name: 'Fire Ember', class: 'theme-fire', colors: ['#ff9a56', '#ff6b6b'], type: 'gradient' },
+            { name: 'Royal Purple', class: 'theme-royal', colors: ['#667eea', '#764ba2'], type: 'gradient' },
+            { name: 'Emerald Wave', class: 'theme-emerald', colors: ['#11998e', '#38ef7d'], type: 'gradient' },
+            { name: 'Cosmic Dust', class: 'theme-cosmic', colors: ['#4776e6', '#8e54e9'], type: 'gradient' },
+            { name: 'Cherry Blossom', class: 'theme-cherry', colors: ['#eb3349', '#f45c43'], type: 'gradient' },
+            
+            // Solid Colors
+            { name: 'Deep Blue', class: 'theme-solid-blue', colors: ['#1e40af'], type: 'solid' },
+            { name: 'Forest Green', class: 'theme-solid-green', colors: ['#059669'], type: 'solid' },
+            { name: 'Crimson Red', class: 'theme-solid-red', colors: ['#dc2626'], type: 'solid' },
+            { name: 'Royal Purple', class: 'theme-solid-purple', colors: ['#7c3aed'], type: 'solid' },
+            { name: 'Amber Gold', class: 'theme-solid-amber', colors: ['#d97706'], type: 'solid' },
+            { name: 'Slate Gray', class: 'theme-solid-slate', colors: ['#475569'], type: 'solid' },
+            { name: 'Rose Pink', class: 'theme-solid-rose', colors: ['#e11d48'], type: 'solid' },
+            { name: 'Teal Blue', class: 'theme-solid-teal', colors: ['#0d9488'], type: 'solid' },
+            
+            // Textured Themes
+            { name: 'Paper Texture', class: 'theme-paper', colors: ['#f7f3e9', '#e8dcc0'], type: 'textured' },
+            { name: 'Marble Stone', class: 'theme-marble', colors: ['#f8fafc', '#e2e8f0'], type: 'textured' },
+            { name: 'Wood Grain', class: 'theme-wood', colors: ['#8b4513', '#d2691e'], type: 'textured' },
+            { name: 'Metal Steel', class: 'theme-metal', colors: ['#64748b', '#94a3b8'], type: 'textured' },
+            { name: 'Fabric Linen', class: 'theme-fabric', colors: ['#faf7f0', '#e6ddd4'], type: 'textured' },
+            
+            // Advanced Gradients
+            { name: 'Mint Fresh', class: 'theme-mint', colors: ['#00b4db', '#0083b0'], type: 'gradient' },
+            { name: 'Golden Hour', class: 'theme-gold', colors: ['#f7971e', '#ffd200'], type: 'gradient' },
+            { name: 'Lavender Dream', class: 'theme-lavender', colors: ['#c471f5', '#fa71cd'], type: 'gradient' },
+            { name: 'Steel Storm', class: 'theme-steel', colors: ['#485563', '#29323c'], type: 'gradient' },
+            { name: 'Rose Garden', class: 'theme-rose', colors: ['#f093fb', '#f5576c'], type: 'gradient' },
+            { name: 'Aqua Marine', class: 'theme-aqua', colors: ['#4facfe', '#00f2fe'], type: 'gradient' },
+            { name: 'Amber Sunset', class: 'theme-amber', colors: ['#ffecd2', '#fcb69f'], type: 'gradient' },
+            { name: 'Violet Storm', class: 'theme-violet', colors: ['#a18cd1', '#fbc2eb'], type: 'gradient' },
+            { name: 'Lime Zest', class: 'theme-lime', colors: ['#8ec5fc', '#e0c3fc'], type: 'gradient' },
+            { name: 'Coral Reef', class: 'theme-coral', colors: ['#ff758c', '#ff7eb3'], type: 'gradient' },
+            { name: 'Teal Ocean', class: 'theme-teal', colors: ['#43e97b', '#38f9d7'], type: 'gradient' },
+            { name: 'Bronze Age', class: 'theme-bronze', colors: ['#d299c2', '#fef9d7'], type: 'gradient' },
+            
+            // VIP Premium Themes
+            { name: '💎 Diamond Luxury', class: 'theme-diamond', colors: ['#e8f5e8', '#b8e6b8'], type: 'vip', vip: true },
+            { name: '🌈 Rainbow Magic', class: 'theme-rainbow', colors: ['#ff6b6b', '#4ecdc4'], type: 'vip', vip: true },
+            { name: '🔥 Phoenix Fire', class: 'theme-phoenix', colors: ['#ff416c', '#ff4b2b'], type: 'vip', vip: true },
+            { name: '❄️ Glacier Ice', class: 'theme-glacier', colors: ['#a8e6cf', '#dcedc1'], type: 'vip', vip: true },
+            { name: '🌙 Moonlight Serenade', class: 'theme-moonlight', colors: ['#2c3e50', '#3498db'], type: 'vip', vip: true },
+            { name: '⚡ Thunder Storm', class: 'theme-thunder', colors: ['#654ea3', '#eaafc8'], type: 'vip', vip: true },
+            { name: '🍃 Nature Spirit', class: 'theme-nature', colors: ['#56ab2f', '#a8e6cf'], type: 'vip', vip: true },
+            { name: '🎆 Celebration Burst', class: 'theme-celebration', colors: ['#ff9a9e', '#fad0c4'], type: 'vip', vip: true },
+            { name: '🌟 Starlight Galaxy', class: 'theme-starlight', colors: ['#0f0c29', '#24243e'], type: 'vip', vip: true },
+            { name: '🦋 Butterfly Wings', class: 'theme-butterfly', colors: ['#ff9472', '#f2709c'], type: 'vip', vip: true },
+            { name: '🌺 Tropical Paradise', class: 'theme-tropical', colors: ['#ff6a00', '#ee0979'], type: 'vip', vip: true },
+            { name: '🎨 Artist Palette', class: 'theme-artist', colors: ['#667db6', '#0082c8'], type: 'vip', vip: true },
+            
+            // Dark Themes
+            { name: 'Dark Ocean', class: 'theme-dark-ocean', colors: ['#0f172a', '#1e293b'], type: 'dark' },
+            { name: 'Dark Forest', class: 'theme-dark-forest', colors: ['#064e3b', '#065f46'], type: 'dark' },
+            { name: 'Dark Purple', class: 'theme-dark-purple', colors: ['#581c87', '#6b21a8'], type: 'dark' },
+            { name: 'Dark Red', class: 'theme-dark-red', colors: ['#7f1d1d', '#991b1b'], type: 'dark' },
+            
+            // Light Themes
+            { name: 'Light Sky', class: 'theme-light-sky', colors: ['#e0f2fe', '#bae6fd'], type: 'light' },
+            { name: 'Light Mint', class: 'theme-light-mint', colors: ['#ecfdf5', '#d1fae5'], type: 'light' },
+            { name: 'Light Rose', class: 'theme-light-rose', colors: ['#fdf2f8', '#fce7f3'], type: 'light' },
+            { name: 'Light Amber', class: 'theme-light-amber', colors: ['#fffbeb', '#fef3c7'], type: 'light' },
+            
+            // Neon Themes
+            { name: 'Neon Blue', class: 'theme-neon-blue', colors: ['#1e3a8a', '#3b82f6'], type: 'neon' },
+            { name: 'Neon Green', class: 'theme-neon-green', colors: ['#166534', '#22c55e'], type: 'neon' },
+            { name: 'Neon Pink', class: 'theme-neon-pink', colors: ['#be185d', '#ec4899'], type: 'neon' },
+            { name: 'Neon Purple', class: 'theme-neon-purple', colors: ['#581c87', '#a855f7'], type: 'neon' }
+        ];
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkMidnightReset();
+            updateCurrentDate();
+            applyTheme(currentTheme);
+            updateAppTitle();
+            renderSubjects();
+            updateDashboard();
+            
+            // Set up midnight check interval
+            setInterval(checkMidnightReset, 60000); // Check every minute
+            
+            // Set up time-based reordering and dashboard updates
+            setInterval(() => {
+                updateSubjectOrder();
+                updateDashboard();
+            }, 30000); // Check every 30 seconds
+            
+            // Update time every second
+            setInterval(updateDashboard, 1000);
+        });
+
+        function updateAppTitle() {
+            const titleElement = document.querySelector('h1');
+            if (titleElement) {
+                titleElement.textContent = appTitle;
+            }
+        }
+
+        function editTitle(element) {
+            const currentTitle = element.textContent;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentTitle;
+            input.className = 'bg-white/20 text-white border-none outline-none rounded px-2 py-1 text-lg font-bold';
+            input.style.width = '200px';
+            
+            element.replaceWith(input);
+            input.focus();
+            input.select();
+            
+            function saveTitle() {
+                const newTitle = input.value.trim() || 'Subject Tracker';
+                appTitle = newTitle;
+                localStorage.setItem('appTitle', appTitle);
+                
+                const newElement = document.createElement('h1');
+                newElement.className = 'text-lg font-bold text-white editable-title';
+                newElement.textContent = newTitle;
+                newElement.onclick = () => editTitle(newElement);
+                
+                input.replaceWith(newElement);
+            }
+            
+            input.addEventListener('blur', saveTitle);
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    saveTitle();
+                }
+            });
+        }
+
+        function checkMidnightReset() {
+            const today = new Date().toDateString();
+            if (lastResetDate !== today) {
+                // Save yesterday's data to history with detailed subject info
+                if (Object.keys(dailyData).length > 0) {
+                    const historyEntry = {
+                        date: lastResetDate,
+                        data: { ...dailyData },
+                        subjects: subjects.map(subject => ({
+                            id: subject.id,
+                            name: subject.name,
+                            priority: subject.priority,
+                            startTime: subject.startTime,
+                            endTime: subject.endTime
+                        }))
+                    };
+                    history.push(historyEntry);
+                    localStorage.setItem('studyHistory', JSON.stringify(history));
+                }
+                
+                // Reset only progress data, keep subjects intact
+                subjects.forEach(subject => {
+                    dailyData[subject.id] = {
+                        studyTime: 0,
+                        completed: false,
+                        notes: '',
+                        sessions: []
+                    };
+                });
+                
+                localStorage.setItem('dailyData', JSON.stringify(dailyData));
+                localStorage.setItem('lastResetDate', today);
+                lastResetDate = today;
+                
+                updateDashboard();
+                renderSubjects();
+            }
+        }
+
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('hi-IN', options);
+        }
+
+        function showAddSubjectModal() {
+            const modal = document.getElementById('addSubjectModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                
+                const nameInput = document.getElementById('subjectName');
+                if (nameInput) {
+                    setTimeout(() => nameInput.focus(), 100);
+                }
+            }
+        }
+
+        function closeAddSubjectModal() {
+            const modal = document.getElementById('addSubjectModal');
+            if (modal) modal.classList.add('hidden');
+            
+            const nameInput = document.getElementById('subjectName');
+            if (nameInput) nameInput.value = '';
+            
+            const prioritySelect = document.getElementById('priorityLevel');
+            if (prioritySelect) prioritySelect.value = 'medium';
+            
+            const startTimeInput = document.getElementById('startTime');
+            if (startTimeInput) startTimeInput.value = '';
+            
+            const endTimeInput = document.getElementById('endTime');
+            if (endTimeInput) endTimeInput.value = '';
+        }
+
+        function addSubject(event) {
+            if (event) event.preventDefault();
+            
+            // Check if there's already a subject being studied today
+            const hasActiveSubject = subjects.some(subject => {
+                const data = dailyData[subject.id] || {};
+                return data.studyTime > 0 || data.completed || data.notes;
+            });
+            
+            if (hasActiveSubject) {
+                alert('आप एक समय में केवल एक ही subject add कर सकते हैं। पहले current subject complete करें।');
+                return;
+            }
+            
+            const nameInput = document.getElementById('subjectName');
+            const prioritySelect = document.getElementById('priorityLevel');
+            const startTimeInput = document.getElementById('startTime');
+            const endTimeInput = document.getElementById('endTime');
+            
+            if (!nameInput || !prioritySelect) {
+                return;
+            }
+            
+            const name = nameInput.value.trim();
+            const priority = prioritySelect.value || 'medium';
+            const startTime = startTimeInput ? startTimeInput.value : '';
+            const endTime = endTimeInput ? endTimeInput.value : '';
+            
+            if (!name) {
+                return;
+            }
+            
+            if (!startTime || !endTime) {
+                alert('कृपया start time और end time दोनों भरें।');
+                return;
+            }
+            
+            const subject = {
+                id: Date.now().toString(),
+                name: name,
+                priority: priority,
+                startTime: startTime,
+                endTime: endTime,
+                createdAt: new Date().toISOString()
+            };
+            
+            subjects.push(subject);
+            localStorage.setItem('subjects', JSON.stringify(subjects));
+            
+            // Initialize daily data for new subject
+            dailyData[subject.id] = {
+                studyTime: 0,
+                completed: false,
+                notes: '',
+                sessions: []
+            };
+            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+            
+            closeAddSubjectModal();
+            renderSubjects();
+            updateDashboard();
+        }
+
+        function toggleSubjectCompletion(subjectId, event) {
+            event.stopPropagation();
+            
+            if (!dailyData[subjectId]) {
+                dailyData[subjectId] = { studyTime: 0, completed: false, notes: '', sessions: [] };
+            }
+            
+            dailyData[subjectId].completed = !dailyData[subjectId].completed;
+            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+            
+            renderSubjects();
+            updateDashboard();
+        }
+
+        function renderSubjects() {
+            const container = document.getElementById('subjectsContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (subjects.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            
+            // Sort subjects by time-based priority
+            const sortedSubjects = getSortedSubjects();
+            
+            container.innerHTML = sortedSubjects.map(subject => {
+                const data = dailyData[subject.id] || { studyTime: 0, completed: false, notes: '' };
+                const timeFormatted = formatTime(data.studyTime);
+                const priorityColor = {
+                    high: 'border-l-red-500',
+                    medium: 'border-l-yellow-500',
+                    low: 'border-l-green-500'
+                };
+                
+                // Check if subject is currently live
+                const now = new Date();
+                const currentTime = now.getHours() * 60 + now.getMinutes();
+                const isLive = isInTimeRange(subject, currentTime);
+                
+                // Time range display
+                const timeRange = subject.startTime && subject.endTime ? 
+                    `${subject.startTime} - ${subject.endTime}` : 
+                    'No time set';
+                
+                return `
+                    <div class="subject-card glass-effect rounded-lg p-3 border-l-4 ${priorityColor[subject.priority]} cursor-pointer ${isLive ? 'live-subject' : ''} ${data.completed ? 'bg-white/20' : ''}" onclick="openSubjectDetail('${subject.id}')">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-white text-sm">${subject.name}</h3>
+                                <p class="text-white/70 text-xs">${timeRange}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                ${isLive ? '<span class="text-green-300 text-xs font-medium animate-pulse">🔴 Live</span>' : ''}
+                                <input type="checkbox" class="checkbox-custom" ${data.completed ? 'checked' : ''} 
+                                       onclick="toggleSubjectCompletion('${subject.id}', event)">
+                            </div>
+                        </div>
+                        
+                        ${editMode ? `
+                            <div class="flex justify-end">
+                                <button onclick="event.stopPropagation(); deleteSubject('${subject.id}')" class="text-red-300 hover:text-red-200 text-xs bg-red-500/20 px-1 py-0.5 rounded">
+                                    🗑️
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openSubjectDetail(subjectId) {
+            currentSubject = subjects.find(s => s.id === subjectId);
+            if (!currentSubject) return;
+            
+            const data = dailyData[subjectId] || { studyTime: 0, completed: false, notes: '', sessions: [] };
+            
+            document.getElementById('detailSubjectName').textContent = currentSubject.name;
+            document.getElementById('subjectNotes').value = data.notes || '';
+            
+            document.getElementById('subjectDetailModal').classList.remove('hidden');
+        }
+
+        function closeSubjectDetailModal() {
+            document.getElementById('subjectDetailModal').classList.add('hidden');
+            currentSubject = null;
+        }
+
+        function toggleTimer() {
+            if (isTimerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            if (!currentSubject) return;
+            
+            isTimerRunning = true;
+            const btn = document.getElementById('startPauseBtn');
+            if (btn) {
+                btn.innerHTML = '⏸️ Pause';
+                btn.className = 'bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-yellow-600 transition-colors text-sm';
+            }
+            
+            timer = setInterval(() => {
+                timerSeconds++;
+                updateTimerDisplay();
+                
+                // Auto-save every 10 seconds for better data safety
+                if (timerSeconds % 10 === 0) {
+                    saveTimerProgress();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isTimerRunning = false;
+            clearInterval(timer);
+            
+            const btn = document.getElementById('startPauseBtn');
+            if (btn) {
+                btn.innerHTML = '▶️ Start';
+                btn.className = 'bg-green-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors text-sm';
+            }
+            
+            saveTimerProgress();
+        }
+
+        function resetTimer() {
+            if (isTimerRunning) {
+                pauseTimer();
+            }
+            
+            timerSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        function saveTimerProgress() {
+            if (!currentSubject) return;
+            
+            if (!dailyData[currentSubject.id]) {
+                dailyData[currentSubject.id] = { studyTime: 0, completed: false, notes: '', sessions: [] };
+            }
+            
+            dailyData[currentSubject.id].studyTime = timerSeconds;
+            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+            
+            renderSubjects();
+            updateDashboard();
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('timerDisplay');
+            if (display) {
+                display.textContent = formatTime(timerSeconds);
+            }
+        }
+
+        function autoSaveNotes() {
+            if (!currentSubject) return;
+            
+            const notes = document.getElementById('subjectNotes').value;
+            
+            if (!dailyData[currentSubject.id]) {
+                dailyData[currentSubject.id] = { studyTime: 0, completed: false, notes: '', sessions: [] };
+            }
+            
+            dailyData[currentSubject.id].notes = notes;
+            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+        }
+
+        function saveSubjectData() {
+            if (!currentSubject) return;
+            
+            const notes = document.getElementById('subjectNotes').value;
+            
+            if (!dailyData[currentSubject.id]) {
+                dailyData[currentSubject.id] = { studyTime: 0, completed: false, notes: '', sessions: [] };
+            }
+            
+            dailyData[currentSubject.id].notes = notes;
+            
+            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+            
+            closeSubjectDetailModal();
+            renderSubjects();
+            updateDashboard();
+        }
+
+        function deleteSubject(subjectId) {
+            if (confirm('Are you sure you want to delete this subject?')) {
+                subjects = subjects.filter(s => s.id !== subjectId);
+                delete dailyData[subjectId];
+                
+                localStorage.setItem('subjects', JSON.stringify(subjects));
+                localStorage.setItem('dailyData', JSON.stringify(dailyData));
+                
+                renderSubjects();
+                updateDashboard();
+            }
+        }
+
+        function updateDashboard() {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            let completedCount = 0;
+            let liveCount = 0;
+            
+            subjects.forEach(subject => {
+                const data = dailyData[subject.id] || { completed: false };
+                if (data.completed) completedCount++;
+                if (isInTimeRange(subject, currentTime)) liveCount++;
+            });
+            
+            const totalSubjects = subjects.length;
+            
+            // Safely update elements
+            const totalEl = document.getElementById('totalSubjects');
+            const completedEl = document.getElementById('completedCount');
+            const liveEl = document.getElementById('liveSubjects');
+            const timeEl = document.getElementById('currentTime');
+            
+            if (totalEl) totalEl.textContent = totalSubjects;
+            if (completedEl) completedEl.textContent = completedCount;
+            if (liveEl) liveEl.textContent = liveCount;
+            
+            // Update current time
+            if (timeEl) {
+                const timeString = now.toLocaleTimeString('hi-IN', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false 
+                });
+                timeEl.textContent = timeString;
+            }
+        }
+
+        function calculateStreak() {
+            if (history.length === 0) return 0;
+            
+            let streak = 0;
+            const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            for (const day of sortedHistory) {
+                const hasStudy = Object.values(day.data).some(data => (data.studyTime || 0) > 0);
+                if (hasStudy) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            // Add today if there's study time
+            const todayHasStudy = Object.values(dailyData).some(data => (data.studyTime || 0) > 0);
+            if (todayHasStudy) streak++;
+            
+            return streak;
+        }
+
+        function showHistory() {
+            document.getElementById('historyModal').classList.remove('hidden');
+            loadHistoryContent();
+        }
+
+        function closeHistoryModal() {
+            document.getElementById('historyModal').classList.add('hidden');
+        }
+
+        function loadHistoryContent() {
+            const content = document.getElementById('historyContent');
+            
+            if (history.length === 0) {
+                content.innerHTML = '<p class="text-gray-500 text-center py-8">No history data available</p>';
+                return;
+            }
+            
+            const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            content.innerHTML = sortedHistory.map(day => {
+                let totalTime = 0;
+                let completedCount = 0;
+                
+                Object.values(day.data).forEach(data => {
+                    totalTime += data.studyTime || 0;
+                    if (data.completed) completedCount++;
+                });
+                
+                return `
+                    <div class="border-b pb-4 mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-semibold">${new Date(day.date).toLocaleDateString('hi-IN')}</h4>
+                            <div class="text-sm text-gray-600">
+                                ${formatTime(totalTime)} • ${completedCount} completed
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2">
+                            ${Object.entries(day.data).map(([subjectId, data]) => {
+                                // Find subject info from history or current subjects
+                                let subjectInfo = null;
+                                if (day.subjects) {
+                                    subjectInfo = day.subjects.find(s => s.id === subjectId);
+                                }
+                                if (!subjectInfo) {
+                                    subjectInfo = subjects.find(s => s.id === subjectId);
+                                }
+                                
+                                if (!subjectInfo) return '';
+                                
+                                return `
+                                    <div class="flex justify-between text-sm bg-gray-50 p-2 rounded">
+                                        <div>
+                                            <span class="font-medium">${subjectInfo.name}</span>
+                                            ${subjectInfo.startTime && subjectInfo.endTime ? 
+                                                `<span class="text-gray-500 text-xs ml-2">${subjectInfo.startTime}-${subjectInfo.endTime}</span>` : ''}
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span>${formatTime(data.studyTime || 0)}</span>
+                                            ${data.completed ? '<span class="text-green-600">✅</span>' : ''}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        ${day.data && Object.values(day.data).some(d => d.notes) ? `
+                            <div class="mt-2 text-xs text-gray-600">
+                                <strong>Notes:</strong>
+                                ${Object.entries(day.data).filter(([_, data]) => data.notes).map(([subjectId, data]) => {
+                                    const subjectInfo = (day.subjects && day.subjects.find(s => s.id === subjectId)) || 
+                                                      subjects.find(s => s.id === subjectId);
+                                    return subjectInfo ? `<div class="mt-1"><em>${subjectInfo.name}:</em> ${data.notes}</div>` : '';
+                                }).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showStats() {
+            document.getElementById('statsModal').classList.remove('hidden');
+            loadStatsContent();
+        }
+
+        function closeStatsModal() {
+            document.getElementById('statsModal').classList.add('hidden');
+        }
+
+        function loadStatsContent() {
+            const content = document.getElementById('statsContent');
+            
+            // Calculate various statistics
+            let totalAllTimeStudy = 0;
+            let totalDays = history.length;
+            let bestDay = { time: 0, date: '' };
+            let subjectStats = {};
+            
+            // Process history
+            history.forEach(day => {
+                let dayTotal = 0;
+                Object.entries(day.data).forEach(([subjectId, data]) => {
+                    const studyTime = data.studyTime || 0;
+                    dayTotal += studyTime;
+                    totalAllTimeStudy += studyTime;
+                    
+                    if (!subjectStats[subjectId]) {
+                        subjectStats[subjectId] = { totalTime: 0, sessions: 0 };
+                    }
+                    subjectStats[subjectId].totalTime += studyTime;
+                    subjectStats[subjectId].sessions++;
+                });
+                
+                if (dayTotal > bestDay.time) {
+                    bestDay = { time: dayTotal, date: day.date };
+                }
+            });
+            
+            // Add today's data
+            Object.values(dailyData).forEach(data => {
+                totalAllTimeStudy += data.studyTime || 0;
+            });
+            
+            const avgDaily = totalDays > 0 ? totalAllTimeStudy / totalDays : 0;
+            const streak = calculateStreak();
+            
+            content.innerHTML = `
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="text-center p-4 bg-blue-100 rounded-xl">
+                        <div class="text-2xl font-bold text-blue-600">${formatTime(totalAllTimeStudy)}</div>
+                        <div class="text-sm text-blue-600">Total Study Time</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-100 rounded-xl">
+                        <div class="text-2xl font-bold text-green-600">${streak}</div>
+                        <div class="text-sm text-green-600">Day Streak</div>
+                    </div>
+                    <div class="text-center p-4 bg-purple-100 rounded-xl">
+                        <div class="text-2xl font-bold text-purple-600">${formatTime(avgDaily)}</div>
+                        <div class="text-sm text-purple-600">Daily Average</div>
+                    </div>
+                    <div class="text-center p-4 bg-yellow-100 rounded-xl">
+                        <div class="text-2xl font-bold text-yellow-600">${totalDays}</div>
+                        <div class="text-sm text-yellow-600">Study Days</div>
+                    </div>
+                </div>
+                
+                ${bestDay.time > 0 ? `
+                    <div class="mb-4 p-4 bg-orange-100 rounded-xl">
+                        <h4 class="font-semibold text-orange-800 mb-2">🏆 Best Study Day</h4>
+                        <p class="text-orange-700">${new Date(bestDay.date).toLocaleDateString('hi-IN')} - ${formatTime(bestDay.time)}</p>
+                    </div>
+                ` : ''}
+                
+                <div class="space-y-2">
+                    <h4 class="font-semibold mb-2">📊 Subject Breakdown</h4>
+                    ${subjects.map(subject => {
+                        const stats = subjectStats[subject.id] || { totalTime: 0, sessions: 0 };
+                        const todayTime = (dailyData[subject.id] || {}).studyTime || 0;
+                        const totalTime = stats.totalTime + todayTime;
+                        
+                        return `
+                            <div class="flex justify-between items-center py-2 border-b">
+                                <span>${subject.name}</span>
+                                <span class="text-sm font-medium">${formatTime(totalTime)}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function getSortedSubjects() {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            return [...subjects].sort((a, b) => {
+                const aData = dailyData[a.id] || { completed: false };
+                const bData = dailyData[b.id] || { completed: false };
+                
+                // Completed subjects go to bottom
+                if (aData.completed && !bData.completed) return 1;
+                if (!aData.completed && bData.completed) return -1;
+                if (aData.completed && bData.completed) return 0;
+                
+                // For non-completed subjects, check time ranges and upcoming times
+                const aInRange = isInTimeRange(a, currentTime);
+                const bInRange = isInTimeRange(b, currentTime);
+                const aUpcoming = getTimeUntilStart(a, currentTime);
+                const bUpcoming = getTimeUntilStart(b, currentTime);
+                
+                // Live subjects first
+                if (aInRange && !bInRange) return -1;
+                if (!aInRange && bInRange) return 1;
+                
+                // If both are live, sort by priority
+                if (aInRange && bInRange) {
+                    const priorityOrder = { high: 0, medium: 1, low: 2 };
+                    return priorityOrder[a.priority] - priorityOrder[b.priority];
+                }
+                
+                // If neither is live, sort by upcoming time (closest first)
+                if (!aInRange && !bInRange) {
+                    // If both have upcoming times, sort by closest
+                    if (aUpcoming >= 0 && bUpcoming >= 0) {
+                        return aUpcoming - bUpcoming;
+                    }
+                    // If only one has upcoming time, it goes first
+                    if (aUpcoming >= 0 && bUpcoming < 0) return -1;
+                    if (aUpcoming < 0 && bUpcoming >= 0) return 1;
+                    
+                    // If both are past their time, sort by priority
+                    const priorityOrder = { high: 0, medium: 1, low: 2 };
+                    return priorityOrder[a.priority] - priorityOrder[b.priority];
+                }
+                
+                return 0;
+            });
+        }
+        
+        function getTimeUntilStart(subject, currentTime) {
+            if (!subject.startTime) return -1;
+            
+            const [startHour, startMin] = subject.startTime.split(':').map(Number);
+            const startTime = startHour * 60 + startMin;
+            
+            if (startTime > currentTime) {
+                return startTime - currentTime; // Minutes until start
+            }
+            return -1; // Already passed
+        }
+        
+        function isInTimeRange(subject, currentTime) {
+            if (!subject.startTime || !subject.endTime) return false;
+            
+            const [startHour, startMin] = subject.startTime.split(':').map(Number);
+            const [endHour, endMin] = subject.endTime.split(':').map(Number);
+            
+            const startTime = startHour * 60 + startMin;
+            const endTime = endHour * 60 + endMin;
+            
+            return currentTime >= startTime && currentTime <= endTime;
+        }
+        
+        function updateSubjectOrder() {
+            renderSubjects();
+        }
+        
+        function showThemes() {
+            document.getElementById('themesModal').classList.remove('hidden');
+            loadThemes();
+        }
+        
+        function closeThemesModal() {
+            document.getElementById('themesModal').classList.add('hidden');
+        }
+        
+        function loadThemes() {
+            const grid = document.getElementById('themesGrid');
+            
+            // Group themes by type
+            const themeGroups = {
+                gradient: themes.filter(t => t.type === 'gradient'),
+                solid: themes.filter(t => t.type === 'solid'),
+                textured: themes.filter(t => t.type === 'textured'),
+                dark: themes.filter(t => t.type === 'dark'),
+                light: themes.filter(t => t.type === 'light'),
+                neon: themes.filter(t => t.type === 'neon'),
+                vip: themes.filter(t => t.vip)
+            };
+            
+            let html = '';
+            
+            Object.entries(themeGroups).forEach(([groupName, groupThemes]) => {
+                if (groupThemes.length === 0) return;
+                
+                const groupTitles = {
+                    gradient: '🌈 Gradient Themes',
+                    solid: '🎨 Solid Colors',
+                    textured: '🖼️ Textured Themes',
+                    dark: '🌙 Dark Themes',
+                    light: '☀️ Light Themes',
+                    neon: '⚡ Neon Themes',
+                    vip: '👑 VIP Premium'
+                };
+                
+                html += `
+                    <div class="col-span-2 mt-4 mb-2">
+                        <h3 class="text-sm font-bold text-gray-700 border-b pb-1">${groupTitles[groupName]}</h3>
+                    </div>
+                `;
+                
+                html += groupThemes.map(theme => {
+                    const backgroundStyle = theme.colors.length === 1 ? 
+                        `background: ${theme.colors[0]}` : 
+                        `background: linear-gradient(135deg, ${theme.colors[0]} 0%, ${theme.colors[1]} 100%)`;
+                    
+                    return `
+                        <div class="theme-card cursor-pointer rounded-xl p-3 border-2 ${currentTheme === theme.class ? 'border-blue-500' : 'border-transparent'} hover:border-gray-300 transition-all ${theme.vip ? 'relative' : ''}" 
+                             onclick="applyTheme('${theme.class}')" 
+                             style="${backgroundStyle}">
+                            ${theme.vip ? '<div class="absolute -top-1 -right-1 bg-yellow-400 text-yellow-900 text-xs px-1 py-0.5 rounded-full font-bold">VIP</div>' : ''}
+                            <div class="text-center">
+                                <div class="text-white font-medium mb-1 text-xs" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5)">${theme.name}</div>
+                                ${currentTheme === theme.class ? '<div class="text-white text-xs" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5)">✓ Active</div>' : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            });
+            
+            grid.innerHTML = html;
+        }
+        
+        function applyTheme(themeClass) {
+            currentTheme = themeClass;
+            localStorage.setItem('currentTheme', themeClass);
+            
+            // Remove all theme classes
+            themes.forEach(theme => {
+                document.body.classList.remove(theme.class);
+            });
+            
+            // Add new theme class
+            document.body.classList.add(themeClass);
+            
+            // Update theme selector
+            if (document.getElementById('themesModal').classList.contains('hidden') === false) {
+                loadThemes();
+            }
+        }
+        
+        function showSettings() {
+            document.getElementById('settingsModal').classList.remove('hidden');
+        }
+        
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+        
+        function toggleEditMode() {
+            editMode = !editMode;
+            const btn = document.getElementById('editModeBtn');
+            
+            if (btn) {
+                if (editMode) {
+                    btn.innerHTML = '✅ Exit Edit Mode';
+                    btn.className = 'w-full bg-green-500 text-white py-2 rounded-lg font-medium hover:bg-green-600 transition-colors flex items-center justify-center gap-2 text-sm';
+                } else {
+                    btn.innerHTML = '✏️ Edit Mode';
+                    btn.className = 'w-full bg-orange-500 text-white py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 text-sm';
+                }
+            }
+            
+            renderSubjects();
+        }
+        
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        
+                        if (confirm('This will replace all current data. Are you sure?')) {
+                            subjects = importedData.subjects || [];
+                            dailyData = importedData.dailyData || {};
+                            history = importedData.history || [];
+                            
+                            localStorage.setItem('subjects', JSON.stringify(subjects));
+                            localStorage.setItem('dailyData', JSON.stringify(dailyData));
+                            localStorage.setItem('studyHistory', JSON.stringify(history));
+                            
+                            renderSubjects();
+                            updateDashboard();
+                        }
+                    } catch (error) {
+                        console.log('Invalid file format');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        function clearAllData() {
+            if (confirm('This will delete ALL data permanently. Are you sure?')) {
+                if (confirm('This action cannot be undone. Really delete everything?')) {
+                    subjects = [];
+                    dailyData = {};
+                    history = [];
+                    
+                    localStorage.removeItem('subjects');
+                    localStorage.removeItem('dailyData');
+                    localStorage.removeItem('studyHistory');
+                    
+                    renderSubjects();
+                    updateDashboard();
+                }
+            }
+        }
+        
+        function exportData() {
+            const exportData = {
+                subjects: subjects,
+                dailyData: dailyData,
+                history: history,
+                currentTheme: currentTheme,
+                appTitle: appTitle,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `subject-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            }
+            return `${minutes}m`;
+        }
+
+        // Prevent accidental page refresh
+        window.addEventListener('beforeunload', function(e) {
+            if (isTimerRunning) {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            }
+        });
+
+        // Handle visibility change (when app goes to background)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && isTimerRunning) {
+                // App went to background, save progress
+                saveTimerProgress();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96fffd23332c405b',t:'MTc1NTMzNzQyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
